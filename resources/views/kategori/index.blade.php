@@ -59,7 +59,7 @@
                                         <tr>
                                             <td>{{ $no++ }} </td>
                                             <td>
-                                                <img src="{{ asset($item->foto) }}" alt="" width="150px">
+                                                <img src="{{ asset($item->foto) }}" alt="" width="300" class="img-fluid img-thumbnail">
                                             </td>
                                             <td> {{$item->kode_kategori}} </td>
                                             <td> {{$item->nama_kategori}} </td>

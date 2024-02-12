@@ -1,4 +1,12 @@
-<nav class="navbar navbar-expand-lg navbar-dark bg-success mb-4">
+@push('css')
+    <style>
+        #navbar {
+            background-color: rgb(145, 23, 74);
+            padding-top: 2em;
+            padding-bottom: 2em;
+        };
+    </style>
+<nav class="navbar navbar-expand-lg navbar-dark" id="navbar">
     <div class="container">
         <a class="navbar-brand" href="#">Toko AMF</a>
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"

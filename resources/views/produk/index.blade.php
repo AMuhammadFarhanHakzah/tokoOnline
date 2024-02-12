@@ -56,9 +56,9 @@
                                     <td> {{$i->kode_produk}} </td>
                                     <td> {{$i->nama_produk}} </td>
                                     <td> {{$i->qty}} {{$i->satuan}} </td>
-                                    <td> Rp. {{number_format($i->harga - ($i->harga / 100 * $i->diskon))}} 
+                                    <td> Rp. {{number_format($i->harga - ($i->harga / 100 * $i->diskon), 2)}} 
                                         @if($i->diskon>0) 
-                                            <br> <del> Rp. {{number_format($i->harga)}} </del>
+                                            <br> <del> Rp. {{number_format($i->harga, 2)}} </del>
                                         @endif
                                     </td>
                                     <td> {{$i->diskon}} % </td>

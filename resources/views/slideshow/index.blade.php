@@ -36,7 +36,7 @@
                                                 <form action="{{route('slideshow.destroy', $slide->id_slideshow)}}" method="POST">
                                                     @csrf
                                                     @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger mb-2">
+                                                    <button type="submit" class="btn btn-danger mb-2" onclick="return confirm('APAKAH ANDA MAU MENGHAPUS INI?')">
                                                         Hapus
                                                     </button>
                                                 </form>

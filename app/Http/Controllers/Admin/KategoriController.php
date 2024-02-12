@@ -68,7 +68,7 @@ class KategoriController extends Controller
         $inputan['foto'] = $foto;
 
         kategori::create($inputan);
-        return redirect()->route('kategori.index')->with('Success', 'Data kategori berhasil disimpan');
+        return redirect()->route('kategori.index')->with('Success', 'Data anda berhasil dibuat');
     }
 
     /**
@@ -129,14 +129,19 @@ class KategoriController extends Controller
         
         if(count($deleteKategori->produk) > 0 ) {
             return back()->with('error', 'Hapus dulu produk di dalam kategori ini, proses dihentikan');
-        }else{
+        } else{
             if($deleteKategori->delete()) {
+                if(file_exists($deleteKategori->foto)){
+                    unlink($deleteKategori->foto);
+                }
                 return back()->with('Success', 'Data berhasil dihapus');
             }else{
                 return back()->with('error', 'Data gagal dihapus');
             }
 
         }
+
+        
 
         return redirect()->route('kategori.index')->with('Success', 'Data kategori berhasil dihapus');
     }
