@@ -31,12 +31,7 @@ class HomepageController extends Controller
         $active = "kontak";
         return view('homepage.kontak', compact('title', 'active'));
     }
-    public function kategori()
-    {
-        $title = "Kategori Produk";
-        $active = "kategori";
-        return view('homepage.kategori', compact('title', 'active'));
-    }
+
     public function produkDetail($slug) {
         
         $itemProduk = produk::where('slug_produk', $slug)
@@ -52,5 +47,15 @@ class HomepageController extends Controller
 
         return view('homepage.produkDetail', compact('title', 'active', 'itemProduk'));
         }
+    }
+
+    public function kategori() {
+        $title = 'Kategori Produk';
+        $active = 'home';
+        $itemKategori = kategori::orderBy('nama_kategori', 'asc')->get();
+        $itemProduk = produk::orderBy('created_at', 'desc')->get();
+        $itemPromo = produk::orderBy('created_at', 'desc')->get();
+
+        return view('homepage.kategori', compact('title', 'active', 'itemKategori', 'itemProduk', 'itemPromo'));
     }
 }

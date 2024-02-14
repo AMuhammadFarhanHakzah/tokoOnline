@@ -40,6 +40,7 @@ Route::get('/', [HomepageController::class, 'index'])->name('home.index');
 Route::get('/about', [HomepageController::class, 'about'])->name('home.about');
 Route::get('/kontak', [HomepageController::class, 'kontak'])->name('home.kontak');
 Route::get('/kategori', [HomepageController::class, 'kategori'])->name('home.kategori');
+Route::get('/kategori/{slug}', [HomepageController::class, 'kategoribyslug'])->name('home.kategoribyslug');
 Route::get('/produkDetail/{slug}', [HomepageController::class, 'produkDetail'])->name('home.produkDetail');
 
 // Route::get('/dashboard', function ()
