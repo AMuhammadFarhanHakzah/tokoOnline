@@ -37,4 +37,20 @@ class HomepageController extends Controller
         $active = "kategori";
         return view('homepage.kategori', compact('title', 'active'));
     }
+    public function produkDetail($slug) {
+        
+        $itemProduk = produk::where('slug_produk', $slug)
+                            ->where('status', 'publish')
+                            ->first();
+
+
+        if($itemProduk) {
+            $title = $itemProduk->nama_produk;
+            $active = 'home';
+            $itemProduk = $itemProduk;
+        
+
+        return view('homepage.produkDetail', compact('title', 'active', 'itemProduk'));
+        }
+    }
 }

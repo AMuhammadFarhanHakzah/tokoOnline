@@ -129,7 +129,7 @@
                                             </a>
                                             <div class="row mt-4">
                                                 <div class="col">
-                                                    <a href="#" class="btn btn-info">Detail</a>
+                                                    <a href="{{route('home.produkDetail', $ip->slug_produk)}}" class="btn btn-info">Detail</a>
                                                 </div>
                                                 <div class="col-auto">
                                                     <p>
@@ -156,7 +156,7 @@
                             <h2 class="text-center">Terbaru</h2>
                         </div>
                         @foreach ($itemProduk as $iproduk)
-                            @if ($iproduk->diskon > 0)
+                            @if ($iproduk->diskon >= 0)
                                 <div class="col-md-4">
                                     <div class="card mb-4 shadow-sm" id='card'>
                                         @foreach ($iproduk->foto_produk->take(1) ?? '' as $foto)
@@ -172,7 +172,7 @@
                                             </a>
                                             <div class="row mt-4">
                                                 <div class="col">
-                                                    <a href="#" class="btn btn-info">Detail</a>
+                                                    <a href="{{route('home.produkDetail', $iproduk->slug_produk)}}" class="btn btn-info">Detail</a>
                                                 </div>
                                                 <div class="col-auto">
                                                     <p>

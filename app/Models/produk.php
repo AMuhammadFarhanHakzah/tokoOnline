@@ -15,7 +15,7 @@ class produk extends Model
 
 
     public function kategori() {
-        return $this->belongsTo(kategori::class, 'id_produk');
+        return $this->belongsTo(kategori::class, 'id_kategori');
     }
     public function foto_produk() {
         return $this->hasMany(foto_produk::class, 'id_produk', 'id_produk');

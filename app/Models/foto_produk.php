@@ -15,6 +15,6 @@ class foto_produk extends Model
     
 
     public function produk() {
-        return $this->belongsTo(produk::class, 'id_foto_produk');
+        return $this->belongsTo(produk::class, 'id_produk');
     }
 }
