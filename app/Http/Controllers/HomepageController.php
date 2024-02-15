@@ -54,8 +54,7 @@ class HomepageController extends Controller
         $active = 'home';
         $itemKategori = kategori::orderBy('nama_kategori', 'asc')->get();
         $itemProduk = produk::orderBy('created_at', 'desc')->get();
-        $itemPromo = produk::orderBy('created_at', 'desc')->get();
 
-        return view('homepage.kategori', compact('title', 'active', 'itemKategori', 'itemProduk', 'itemPromo'));
+        return view('homepage.kategori', compact('title', 'active', 'itemKategori', 'itemProduk'));
     }
 }

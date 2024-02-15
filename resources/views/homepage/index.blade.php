@@ -31,7 +31,7 @@
     </style>
 
     @section('content')
-        <div class="container-fluid">
+        <div class="container-fluid" id='container'>
             <!-- carousel -->
             <div class="row">
                 <div class="col-1" id="carousel-background"></div>

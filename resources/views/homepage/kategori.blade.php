@@ -57,11 +57,11 @@
           <div class="col col-md-12 col-sm-12 mb-4">
               <h2 class="text-center">Promo</h2>
           </div>
-          @foreach ($itemPromo as $ip)
-              @if ($ip->diskon > 0)
+          @foreach ($itemProduk as $iproduk)
+              @if ($iproduk->diskon > 0)
                   <div class="col-md-4">
                       <div class="card mb-4 shadow-sm" id='card'>
-                          @foreach ($ip->foto_produk->take(1) as $foto)
+                          @foreach ($iproduk->foto_produk->take(1) as $foto)
                               <a href="#">
                                   <img src="{{ asset($foto->foto_produk) }}" alt="" class="card-img-top">
                               </a>
@@ -69,21 +69,21 @@
                           <div class="card-body">
                               <a href="#" class="text-decoration-none">
                                   <p class="card-text">
-                                      {{ $ip->nama_produk }}
+                                      {{ $iproduk->nama_produk }}
                                   </p>
                               </a>
                               <div class="row mt-4">
                                   <div class="col">
-                                      <a href="{{route('home.produkDetail', $ip->slug_produk)}}" class="btn btn-info">Detail</a>
+                                      <a href="{{route('home.produkDetail', $iproduk->slug_produk)}}" class="btn btn-info">Detail</a>
                                   </div>
                                   <div class="col-auto">
                                       <p>
-                                          @if ($ip->diskon > 0)
-                                              <del>Rp. {{ number_format($ip->harga, 2) }} </del>
+                                          @if ($iproduk->diskon > 0)
+                                              <del>Rp. {{ number_format($iproduk->harga, 2) }} </del>
                                           @endif
                                           <br>
                                           Rp.
-                                          {{ number_format($ip->harga - ($ip->harga / 100) * $ip->diskon, 2) }}
+                                          {{ number_format($iproduk->harga - ($iproduk->harga / 100) * $iproduk->diskon, 2) }}
                                       </p>
                                   </div>
                               </div>

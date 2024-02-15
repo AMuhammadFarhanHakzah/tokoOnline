@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\cart;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -11,7 +12,23 @@ class CartController extends Controller
      */
     public function index()
     {
-        //
+        $itemCart = cart::where('id_user', auth()->user()->id_user)
+                        ->where('status_cart', 'proses')
+                        ->first();
+
+        if($itemCart) {
+            $data = array(
+                'title' => 'Shopping Cart',
+                'active' => 'cart',
+                'itemCart' => $itemCart
+            );
+                return view('cart.index', $data)->with('no', 1);
+        }else{
+            echo '<script>alert("Anda belum memiliki keranjang. Silahkan belanja terlebih dahulu") </script>';
+            echo "<script>window.location = '/' </script>";
+        }
+
+        
     }
 
     /**

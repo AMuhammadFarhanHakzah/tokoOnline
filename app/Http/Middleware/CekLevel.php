@@ -15,10 +15,11 @@ class CekLevel
      */
     public function handle(Request $request, Closure $next, ...$role): Response
     {
+        
         if(auth()->user() && in_array(auth()->user()->role, $role)) {
             return $next($request);
         }
 
-        return redirect('/');
+        return redirect("/");
     }
 }
