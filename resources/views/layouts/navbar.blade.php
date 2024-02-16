@@ -35,6 +35,9 @@
                         <a class="nav-link" href="#">Produk</a>
                     </li>
                     <li class="nav-item {{ $active === 'kategori' ? 'active' : ' ' }}">
+                        <a class="nav-link" href="{{ route('cart.index') }}">Cart</a>
+                    </li>
+                    <li class="nav-item {{ $active === 'kategori' ? 'active' : ' ' }}">
                         <a class="nav-link" href="{{ route('home.kategori') }}">Kategori</a>
                     </li>
                     <li class="nav-item {{ $active === 'kontak' ? 'active' : ' ' }}">

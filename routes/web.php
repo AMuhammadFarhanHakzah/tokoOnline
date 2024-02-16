@@ -48,19 +48,19 @@ Route::get('/kategori', [HomepageController::class, 'kategori'])->name('home.kat
 Route::get('/kategori/{slug}', [HomepageController::class, 'kategoribyslug'])->name('home.kategoribyslug');
 Route::get('/produkDetail/{slug}', [HomepageController::class, 'produkDetail'])->name('home.produkDetail');
 
-Route::resource('cart', CartController::class);
-
-Route::patch('/kosongkan/{id}', [CartController::class, 'kosongkan']);
-
+Route::middleware(['auth', 'role:member'])->group(function () {
+    Route::resource('cart', CartController::class);
+    Route::patch('/kosongkan/{id}', [CartController::class, 'kosongkan']);
+});
 // Route::get('/dashboard', function ()
 //     {
 //     return view('layouts.dashboard');
 //     }
 // );
 
-Route::middleware(['auth', 'ceklevel:admin'])->group(function() {
-    Route::group (['prefix'=> 'admin'], function () {
-        Route::get('/', [DashboardController::class,'index'])->name('dashboard.index');
+Route::middleware(['auth', 'role:admin'])->group(function () {
+    Route::group(['prefix' => 'admin'], function () {
+        Route::get('/', [DashboardController::class, 'index'])->name('dashboard.index');
         //Route Kategori
         Route::resource('kategori', KategoriController::class);
         Route::get('/cari-kategori', [KategoriController::class, 'cari'])->name('kategori.cari');
@@ -84,6 +84,4 @@ Route::middleware(['auth', 'ceklevel:admin'])->group(function() {
         //Route Proses Laporan
         Route::get('/proseslaporan', [LaporanController::class, 'proses'])->name('laporan.proses');
     });
-    
 });
-

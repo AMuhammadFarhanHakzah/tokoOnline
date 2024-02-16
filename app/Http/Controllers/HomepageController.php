@@ -57,4 +57,21 @@ class HomepageController extends Controller
 
         return view('homepage.kategori', compact('title', 'active', 'itemKategori', 'itemProduk'));
     }
+
+    public function kategoribyslug($slug) {
+        $itemKategori = kategori::where('slug_kategori', $slug)
+                                ->orderBy('nama_kategori', 'asc')
+                                ->first();
+        
+        if($itemKategori) {
+            $title = $itemKategori->nama_kategori;
+            $active = 'home';
+            $itemKategori = $itemKategori;
+
+            return view('homepage.kategori_produk', compact('title', 'active', 'itemKategori'));
+        } else {
+            return abort(404);
+        }
+        
+    }
 }
