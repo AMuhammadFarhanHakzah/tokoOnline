@@ -11,6 +11,7 @@ use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\admin\SlideshowController;
 use App\Http\Controllers\CartController;
+use App\Http\Controllers\CartDetailController;
 use App\Http\Controllers\HomeController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -51,6 +52,7 @@ Route::get('/produkDetail/{slug}', [HomepageController::class, 'produkDetail'])-
 Route::middleware(['auth', 'role:member'])->group(function () {
     Route::resource('cart', CartController::class);
     Route::patch('/kosongkan/{id}', [CartController::class, 'kosongkan']);
+    Route::resource('cartdetail', CartDetailController::class);
 });
 // Route::get('/dashboard', function ()
 //     {
