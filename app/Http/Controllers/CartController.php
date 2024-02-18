@@ -3,6 +3,8 @@
 namespace App\Http\Controllers;
 
 use App\Models\cart;
+use App\Models\cartdetail;
+use App\Models\produk;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -20,7 +22,7 @@ class CartController extends Controller
             $data = array(
                 'title' => 'Shopping Cart',
                 'active' => 'cart',
-                'itemCart' => $itemCart
+                'itemCart' => $itemCart,
             );
                 return view('cart.index', $data)->with('no', 1);
         }else{
@@ -77,5 +79,23 @@ class CartController extends Controller
     public function destroy(string $id)
     {
         //
+    }
+
+    public function kosongkan($id) {
+        $itemCart = cart::findOrFail($id);
+
+        $itemCartDetail = cartdetail::where('id_cart', $id)->get();
+
+        foreach ($itemCartDetail as $cartDetail) {
+            $itemDetail = cartdetail::where('id_produk', $cartDetail->id_produk)->first();
+            $itemProduk = produk::where('id_produk', $cartDetail->id_produk)->first();
+            produk::where('id_produk', $itemProduk->id_produk)->update([
+                'qty' => $itemProduk->qty + $itemDetail->qty
+            ]);
+        }
+
+        $itemCart->cartdetail()->delete();
+        $itemCart->updateTotal($itemCart, '-', $itemCart->subtotal);
+        return back()->with('Success', 'Cart berhasil dikosongkan');
     }
 }

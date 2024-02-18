@@ -20,6 +20,9 @@ class produk extends Model
     public function foto_produk() {
         return $this->hasMany(foto_produk::class, 'id_produk', 'id_produk');
     }
+    public function cartdetail() {
+        return $this->hasMany(cartdetail::class, 'id_produk', 'id_produk');
+    }
     public function cart() {
         return $this->hasMany(cart::class, 'id_produk', 'id_produk');
     }

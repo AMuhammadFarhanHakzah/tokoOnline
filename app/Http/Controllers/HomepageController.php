@@ -51,7 +51,7 @@ class HomepageController extends Controller
 
     public function kategori() {
         $title = 'Kategori Produk';
-        $active = 'home';
+        $active = 'kategori';
         $itemKategori = kategori::orderBy('nama_kategori', 'asc')->get();
         $itemProduk = produk::orderBy('created_at', 'desc')->get();
 
@@ -62,13 +62,15 @@ class HomepageController extends Controller
         $itemKategori = kategori::where('slug_kategori', $slug)
                                 ->orderBy('nama_kategori', 'asc')
                                 ->first();
+        $itemListKategori = kategori::orderBy('nama_kategori', 'asc')->get();
         
         if($itemKategori) {
             $title = $itemKategori->nama_kategori;
             $active = 'home';
             $itemKategori = $itemKategori;
+            $itemListKategori = $itemListKategori;
 
-            return view('homepage.kategori_produk', compact('title', 'active', 'itemKategori'));
+            return view('homepage.kategori_produk', compact('title', 'active', 'itemKategori', 'itemListKategori'));
         } else {
             return abort(404);
         }

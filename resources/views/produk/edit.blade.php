@@ -97,7 +97,7 @@
                                 <div class="col">
                                     <div class="form-group">
                                         <label for="qty">Qty</label>
-                                        <input type="text" name='qty' id='qty'
+                                        <input type="number" name='qty' id='qty'
                                             class="form-control @error('qty') is-invalid @enderror"
                                             value="{{ old('qty', $produk->qty) }}">
                                         @error('qty')
@@ -128,7 +128,7 @@
                             <div class="form-group">
                                 <label for="harga">Harga</label>
                                 <div class="input-group">
-                                    <input type="text" name='harga' id='harga'
+                                    <input type="number" name='harga' id='harga'
                                         class="form-control @error('harga') is-invalid @enderror"
                                         value="{{ old('harga', $produk->harga) }}">
                                     <div class="input-group-append">

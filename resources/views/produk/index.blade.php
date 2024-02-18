@@ -64,8 +64,8 @@
                                     <td> {{$i->diskon}} % </td>
                                     <td> {{$i->status}} </td>
                                     <td>
-                                        <a href="{{route('produk.show', $i->id_produk)}}" class="btn btn-primary btn-sm mr-2 mb-2">Detail</a>
-                                        <a href="{{route('produk.edit', $i->id_produk)}}" class='btn btn-primary btn-sm mr-2 mb-2'>Edit</a>
+                                        <a href="{{route('produk.show', $i->id_produk)}}" class="btn btn-primary btn-sm mb-2">Detail</a>
+                                        <a href="{{route('produk.edit', $i->id_produk)}}" class='btn btn-primary btn-sm mb-2'>Edit</a>
                                         <form action="{{route('produk.destroy', $i->id_produk)}}" method="POST" style="display: inline">
                                             @csrf
                                             @method('delete')

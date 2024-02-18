@@ -13,21 +13,26 @@ class cart extends Model
     protected $table = 'cart';
     protected $guarded = [];
 
+
+    public function User(){
+        return $this->belongsTo(User::class, 'id_user');
+    }
+
     public function cartdetail() {
         return $this->hasMany(cartdetail::class, 'id_cart', 'id_cart');
     }
 
-    public function updatetotal($itemcart, $operator, $subtotal) {
+    public function updateTotal($itemCart, $operator, $subtotal) {
         if($operator == '+') {
-            $this->attributes['subtotal'] = $itemcart->subtotal + $subtotal;
+            $this->attributes['subtotal'] = $itemCart->subtotal + $subtotal;
         } else {
-            $this->attributes['subtotal'] = $itemcart->subtotal - $subtotal;
+            $this->attributes['subtotal'] = $itemCart->subtotal - $subtotal;
         }
         if($operator == '+') {
-            $this->attributes['total'] = $itemcart->total + $subtotal;
+            $this->attributes['total'] = $itemCart->total + $subtotal;
         } else{
-            $this->attributes['total'] = $itemcart->total - $subtotal;
+            $this->attributes['total'] = $itemCart->total - $subtotal;
         }
-
+        self::save();
     }
 }

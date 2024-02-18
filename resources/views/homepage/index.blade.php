@@ -88,16 +88,16 @@
                         @foreach ($itemKategori as $ik)
                             <div class="col-md-4 ">
                                 <div class="card mb-4 shadow-sm" id="card">
-                                    <a href="#">
+                                    <a href="{{route('home.kategoribyslug', $ik->slug_kategori)}}">
                                         <img src="{{ asset($ik->foto) }}" alt="" class="card-img-top">
                                     </a>
                                     <div class="card-body">
                                         <div class="row">
                                             <div class="col-md-6">
-                                                <p class="card-text"> {{ $ik->nama_kategori }} </p>
+                                                <a href="{{route('home.kategoribyslug', $ik->slug_kategori)}}" class="card-text"> {{$ik->nama_kategori}} </a>
                                             </div>
                                             <div class="col-md-6">
-                                                <a href="#" class="btn btn-info">Lihat Kategori</a>
+                                                <a href="{{route('home.kategoribyslug', $ik->slug_kategori)}}" class="btn btn-info">Lihat Kategori</a>
                                             </div>
                                         </div>
                                     </div>
@@ -117,12 +117,12 @@
                                 <div class="col-md-4">
                                     <div class="card mb-4 shadow-sm" id='card'>
                                         @foreach ($ip->foto_produk->take(1) as $foto)
-                                            <a href="#">
+                                            <a href="{{route('home.produkDetail', $ip->slug_produk)}}">
                                                 <img src="{{ asset($foto->foto_produk) }}" alt="" class="card-img-top">
                                             </a>
                                         @endforeach
                                         <div class="card-body">
-                                            <a href="#" class="text-decoration-none">
+                                            <a href="{{route('home.produkDetail', $ip->slug_produk)}}" class="text-decoration-none">
                                                 <p class="card-text">
                                                     {{ $ip->nama_produk }}
                                                 </p>
@@ -160,12 +160,12 @@
                                 <div class="col-md-4">
                                     <div class="card mb-4 shadow-sm" id='card'>
                                         @foreach ($iproduk->foto_produk->take(1) ?? '' as $foto)
-                                            <a href="#">
+                                            <a href="{{route('home.produkDetail', $iproduk->slug_produk)}}">
                                                 <img src="{{ asset($foto->foto_produk) }}" alt="" class="card-img-top">
                                             </a>
                                         @endforeach
                                         <div class="card-body">
-                                            <a href="#" class="text-decoration-none">
+                                            <a href="{{route('home.produkDetail', $iproduk->slug_produk)}}" class="text-decoration-none">
                                                 <p class="card-text">
                                                     {{ $iproduk->nama_produk }}
                                                 </p>

@@ -28,14 +28,8 @@
                 @endguest
 
                     <li class="nav-item {{ $active === 'home' ? 'active' : ' ' }}">
-                        <a class="nav-link active" href="{{ route('home.index') }}">Home <span
+                        <a class="nav-link" href="{{ route('home.index') }}">Home <span
                                 class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item {{ $active === 'produk' ? 'active' : ' ' }}">
-                        <a class="nav-link" href="#">Produk</a>
-                    </li>
-                    <li class="nav-item {{ $active === 'kategori' ? 'active' : ' ' }}">
-                        <a class="nav-link" href="{{ route('cart.index') }}">Cart</a>
                     </li>
                     <li class="nav-item {{ $active === 'kategori' ? 'active' : ' ' }}">
                         <a class="nav-link" href="{{ route('home.kategori') }}">Kategori</a>
@@ -46,6 +40,13 @@
                     <li class="nav-item {{ $active === 'about' ? 'active' : ' ' }}">
                         <a class="nav-link" href="{{ route('home.about') }}">About</a>
                     </li>
+                    @if($active === 'cart' || auth()->user())
+                        <li class="nav-item {{$active === 'cart' ?'active' : ''}}">
+                            <a class="nav-link" href="{{route('cart.index')}}">
+                                Cart
+                            </a>
+                        </li>
+                    @endif
 
                     @guest
                         @if (Route::has('login'))

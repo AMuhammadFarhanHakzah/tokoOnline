@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string('no_invoice');
             $table->enum('status_cart', ['proses', 'tidakaktif', 'aktif']);
             $table->enum('status_pembayaran', ['sudahdibayar', 'belumdibayar']);
+            $table->enum('status_pengiriman', ['sudah', 'belum']);
             $table->string('no_resi')->nullable();
             $table->string('ekspedisi')->nullable();
             $table->double('subtotal')->default(0);
