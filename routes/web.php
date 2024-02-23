@@ -10,9 +10,11 @@ use App\Http\Controllers\HomepageController;
 use App\Http\Controllers\Admin\KategoriController;
 use App\Http\Controllers\Admin\ProdukController;
 use App\Http\Controllers\admin\SlideshowController;
+use App\Http\Controllers\AlamatPengirimanController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartDetailController;
 use App\Http\Controllers\HomeController;
+use App\Http\Controllers\TransaksiUserController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
@@ -52,7 +54,13 @@ Route::get('/produkDetail/{slug}', [HomepageController::class, 'produkDetail'])-
 Route::middleware(['auth', 'role:member'])->group(function () {
     Route::resource('cart', CartController::class);
     Route::patch('/kosongkan/{id}', [CartController::class, 'kosongkan']);
+    Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout.checkout');
+
     Route::resource('cartdetail', CartDetailController::class);
+    
+    Route::resource('transaksiUser', TransaksiUserController::class);
+
+    Route::resource('alamatPengiriman', AlamatPengirimanController::class);
 });
 // Route::get('/dashboard', function ()
 //     {

@@ -15,14 +15,13 @@ return new class extends Migration
             $table->increments('id_cart');
             $table->unsignedBigInteger('id_user');
             $table->string('no_invoice');
-            $table->enum('status_cart', ['proses', 'tidakaktif', 'aktif']);
+            $table->enum('status_cart', ['proses', 'checkout']);
             $table->enum('status_pembayaran', ['sudahdibayar', 'belumdibayar']);
             $table->enum('status_pengiriman', ['sudah', 'belum']);
             $table->string('no_resi')->nullable();
             $table->string('ekspedisi')->nullable();
             $table->double('subtotal')->default(0);
             $table->double('ongkir')->default(0);
-            $table->double('diskon')->default(0);
             $table->double('total')->default(0);
             $table->timestamps();
         });

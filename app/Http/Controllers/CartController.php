@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\alamatpengiriman;
 use App\Models\cart;
 use App\Models\cartdetail;
 use App\Models\produk;
@@ -97,5 +98,29 @@ class CartController extends Controller
         $itemCart->cartdetail()->delete();
         $itemCart->updateTotal($itemCart, '-', $itemCart->subtotal);
         return back()->with('Success', 'Cart berhasil dikosongkan');
+    }
+
+    public function checkout(Request $request) {
+        
+        $itemUser = auth()->user();
+        $itemCart = cart::where('id_user', $itemUser->id_user)
+                        ->where('status_cart', 'proses')
+                        ->first();
+
+        $itemAlamatPengiriman = alamatpengiriman::where('id_user', $itemUser->id_user)
+                                                ->where('status', '1')
+                                                ->first();
+        
+        if($itemCart) {
+            $data = array(
+                'title' => 'Checkout',
+                'itemCart' => $itemCart,
+                'active' => 'cart',
+                'itemAlamatPengiriman' => $itemAlamatPengiriman,
+            );
+            return view('cart.checkout', $data)->with('no', 1);
+        } else {
+            return abort('404');
+        }
     }
 }

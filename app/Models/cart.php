@@ -22,6 +22,14 @@ class cart extends Model
         return $this->hasMany(cartdetail::class, 'id_cart', 'id_cart');
     }
 
+    public function alamatpengiriman() {
+        return $this->hasMany(alamatpengiriman::class, 'id_cart', 'id_cart');
+    }
+
+    public function order() {
+        return $this->hasMany(order::class, 'id_cart', 'id_cart');
+    }
+
     public function updateTotal($itemCart, $operator, $subtotal) {
         if($operator == '+') {
             $this->attributes['subtotal'] = $itemCart->subtotal + $subtotal;
@@ -35,4 +43,5 @@ class cart extends Model
         }
         self::save();
     }
+    
 }
