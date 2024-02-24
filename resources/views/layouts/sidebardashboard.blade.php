@@ -101,12 +101,19 @@
         </a>
       </li>
       <li class="nav-item">
-        <a href="#" class="nav-link">
-          <i class="nav-icon fas fa-sign-out-alt"></i>
-          <p>
-            Sign Out
-          </p>
-        </a>
+        @if(auth()->user())
+          <a href="{{route('logout')}}" class="nav-link" onclick="event.preventDefault();document.getElementById('logout-form').submit();">
+            <i class="nav-icon fas fa-sign-out-alt"></i>
+            Logout
+          </a>
+          <form action="{{route('logout')}}" id="logout-form" class="d-none" method="post">
+            @csrf
+          </form>
+        @else
+          <a href="{{route('login')}}" class="nav-link">Login</a>
+        @endif
       </li>
     </ul>
   </nav>
+
+  

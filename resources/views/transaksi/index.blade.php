@@ -10,6 +10,27 @@
                         </div>
                     </div>
                     <div class="card-body">
+                        @if(count($errors)>0)
+                            @foreach ($errors as $error)
+                                <div class="alert alert-warning">
+                                    {{$error}}
+                                </div>
+                            @endforeach
+                        @endif
+                        @if($message = Session::get('error')) 
+                            <div class="alert alert-warning">
+                                <p>
+                                    {{$message}}
+                                </p>
+                            </div>
+                        @endif
+                        @if($message = Session::get('Success'))
+                            <div class="alert alert-success">
+                                <p>
+                                    {{$message}}
+                                </p>
+                            </div>
+                        @endif
                         <form action="#">
                             <div class="row">
                                 <div class="col">
@@ -29,27 +50,42 @@
                                         <th>No</th>
                                         <th>Invoice</th>
                                         <th>Sub Total</th>
-                                        <th>Diskon</th>
                                         <th>Ongkir</th>
                                         <th>Total</th>
                                         <th>Status Pembayaran</th>
-                                        <th>Status</th>
+                                        <th>Status Pengiriman</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Inv-01</td>
-                                        <td>Rp. 200.000</td>
-                                        <td>0</td>
-                                        <td>Rp. 227.000</td>
-                                        <td>Belum Dibayar</td>
-                                        <td>Checkout</td>
-                                        <td>
-                                            <a href="{{route('transaksi.show', 1)}}" class="btn btn-sm btn-info">Detail</a>
-                                            <a href="{{route('transaksi.edit', 1)}}" class="btn btn-sm btn-primary">Edit</a>
-                                        </td>
-                                    </tr>
+                                    @foreach ($itemOrder as $order)
+                                        <tr>
+                                            <td> {{++$no}} </td>
+                                            <td> {{$order->cart->no_invoice}} </td>
+                                            <td> {{number_format($order->cart->subtotal, 2)}} </td>
+                                            <td> {{number_format($order->cart->ongkir, 2)}} </td>
+                                            <td> {{number_format($order->cart->total, 2)}} </td>
+                                            <td> 
+                                                @if($order->cart->status_pembayaran === 'belumdibayar')
+                                                    Belum Dibayar
+                                                @else
+                                                    Sudah Dibayar
+                                                @endif    
+                                            </td>
+                                            <td> 
+                                                @if ($order->cart->status_pengiriman === 'belum')
+                                                    Belum Dikirim
+                                                @else
+                                                    Sudah Dikirim
+                                                @endif    
+                                            </td>
+                                            <td>
+                                                <td>
+                                                    <a href="{{route('transaksi.show', 1)}}" class="btn btn-sm btn-info">Detail</a>
+                                                    <a href="{{route('transaksi.edit', 1)}}" class="btn btn-sm btn-primary">Edit</a>
+                                                </td>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>

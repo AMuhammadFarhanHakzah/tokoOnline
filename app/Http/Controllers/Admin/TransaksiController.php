@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\order;
 use Illuminate\Http\Request;
 
 class TransaksiController extends Controller
@@ -10,10 +11,16 @@ class TransaksiController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(Request $request)
     {
         $title = 'Data Transaksi';
-        return view('transaksi.index', compact('title'));
+        $itemUser = auth()->user();
+        $itemOrder = order::whereHas('cart', function($q) use ($itemUser){
+            $q->where('status_cart', 'checkout');
+        })->orderBy('created_at', 'desc')
+          ->paginate(20);
+
+        return view('transaksi.index', compact('title', 'itemUser', 'itemOrder'))->with('no', ($request->input('page', 1) - 1) * 20);
     }
 
     /**
@@ -38,7 +45,10 @@ class TransaksiController extends Controller
     public function show(string $id)
     {
         $title = 'Detail Transaksi';
-        return view('transaksi.show', compact('title'));
+        $itemOrder = order::findOrFail($id);
+        
+
+        return view('transaksi.show', compact('title', 'itemOrder'))->with('no', 1);
     }
 
     /**

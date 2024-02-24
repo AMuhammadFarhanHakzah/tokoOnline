@@ -17,6 +17,13 @@ class HomepageController extends Controller
         $itemPromo = produk::orderBy('created_at', 'desc')->where('status', 'publish')->whereNotNull('diskon')->limit(6)->get();
         $itemKategori = kategori::orderBy('nama_kategori', 'asc')->limit(6)->get();
         $itemSlide = slideshow::get();
+
+        if(auth()->user()) {
+            if(auth()->user()->role === 'admin') {
+                return redirect('/admin');
+            }
+        }
+
         return view('homepage.index', compact('title', 'active', 'itemProduk', 'itemPromo', 'itemKategori', 'itemSlide'));
     }
     public function about()
