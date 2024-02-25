@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\cart;
 use App\Models\order;
 use Illuminate\Http\Request;
 
@@ -15,12 +16,23 @@ class TransaksiController extends Controller
     {
         $title = 'Data Transaksi';
         $itemUser = auth()->user();
-        $itemOrder = order::whereHas('cart', function($q) use ($itemUser){
-            $q->where('status_cart', 'checkout');
-        })->orderBy('created_at', 'desc')
-          ->paginate(20);
+        $itemOrder = order::join('cart', 'order.id_cart', '=', 'cart.id_cart')
+                          ->where('status_cart', 'checkout')
+                          ->orderBy('order.created_at', 'desc')
+                          ->paginate(20);
 
         return view('transaksi.index', compact('title', 'itemUser', 'itemOrder'))->with('no', ($request->input('page', 1) - 1) * 20);
+    }
+
+    public function cari(Request $request)
+    {
+        $title = 'Data Transaksi';
+        $cari = $request->key;
+        $itemOrder = cart::join('order', 'cart.id_cart', '=', 'order.id_cart')
+                         ->join('users', 'cart.id_user', '=', 'users.id_user')
+                         ->orderBy('order.created_at', 'desc')
+                         ->paginate(20);
+        return view('transaksi.index', compact('title', 'cari', 'itemOrder'))->with('no', ($request->input('page', 1) - 1) * 20);
     }
 
     /**
@@ -46,7 +58,7 @@ class TransaksiController extends Controller
     {
         $title = 'Detail Transaksi';
         $itemOrder = order::findOrFail($id);
-        
+
 
         return view('transaksi.show', compact('title', 'itemOrder'))->with('no', 1);
     }

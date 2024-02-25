@@ -34,7 +34,7 @@
                         <form action="#">
                             <div class="row">
                                 <div class="col">
-                                    <input type="text" class="form-control" id='keyword' placeholder='Ketik Keyword Disini'>
+                                    <input type="text" class="form-control" id='keyword' placeholder='Cari berdasarkan nama pengirim, nama yang dikirim, dan status pembayaran atau status pengiriman'>
                                 </div>
                                 <div class="col-auto">
                                     <button class="btn btn-primary">Cari</button>
@@ -60,19 +60,19 @@
                                     @foreach ($itemOrder as $order)
                                         <tr>
                                             <td> {{++$no}} </td>
-                                            <td> {{$order->cart->no_invoice}} </td>
-                                            <td> {{number_format($order->cart->subtotal, 2)}} </td>
-                                            <td> {{number_format($order->cart->ongkir, 2)}} </td>
-                                            <td> {{number_format($order->cart->total, 2)}} </td>
+                                            <td> {{$order->no_invoice}} </td>
+                                            <td> {{number_format($order->subtotal, 2)}} </td>
+                                            <td> {{number_format($order->ongkir, 2)}} </td>
+                                            <td> {{number_format($order->total, 2)}} </td>
                                             <td> 
-                                                @if($order->cart->status_pembayaran === 'belumdibayar')
+                                                @if($order->status_pembayaran === 'belumdibayar')
                                                     Belum Dibayar
                                                 @else
                                                     Sudah Dibayar
                                                 @endif    
                                             </td>
                                             <td> 
-                                                @if ($order->cart->status_pengiriman === 'belum')
+                                                @if ($order->status_pengiriman === 'belum')
                                                     Belum Dikirim
                                                 @else
                                                     Sudah Dikirim
@@ -80,7 +80,7 @@
                                             </td>
                                             <td>
                                                 <td>
-                                                    <a href="{{route('transaksi.show', 1)}}" class="btn btn-sm btn-info">Detail</a>
+                                                    <a href="{{route('transaksi.show', $order->id_order)}}" class="btn btn-sm btn-info">Detail</a>
                                                     <a href="{{route('transaksi.edit', 1)}}" class="btn btn-sm btn-primary">Edit</a>
                                                 </td>
                                             </td>

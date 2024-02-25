@@ -83,6 +83,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         route::resource('customer', CustomerController::class);
         //Route Transaksi
         route::resource('transaksi', TransaksiController::class);
+        Route::get('/cari-transaksi', [TransaksiController::class, 'cari'])->name('transaksi.cari');
         //Route Profil
         route::get('/profil', [UserController::class, 'index'])->name('profil.index');
         //Route Setting Profil
