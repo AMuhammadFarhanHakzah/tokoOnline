@@ -231,7 +231,7 @@
                                 <tr>
                                     <td>Status Pengiriman</td>
                                     <td class="text-right">
-                                        {{$itemOrder->cart->staus_pengiriman}}
+                                        {{$itemOrder->cart->status_pengiriman}}
                                     </td>
                                 </tr>
                                 <tr>

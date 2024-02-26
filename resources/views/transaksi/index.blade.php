@@ -31,10 +31,10 @@
                                 </p>
                             </div>
                         @endif
-                        <form action="#">
+                        <form action="{{route('transaksi.cari')}}" method="GET">
                             <div class="row">
                                 <div class="col">
-                                    <input type="text" class="form-control" id='keyword' placeholder='Cari berdasarkan nama pengirim, nama yang dikirim, dan status pembayaran atau status pengiriman'>
+                                    <input type="text" class="form-control" id='keyword' name="key" placeholder='Cari berdasarkan nama pengirim, nama yang dikirim, dan status pembayaran atau status pengiriman'>
                                 </div>
                                 <div class="col-auto">
                                     <button class="btn btn-primary">Cari</button>
@@ -81,7 +81,7 @@
                                             <td>
                                                 <td>
                                                     <a href="{{route('transaksi.show', $order->id_order)}}" class="btn btn-sm btn-info">Detail</a>
-                                                    <a href="{{route('transaksi.edit', 1)}}" class="btn btn-sm btn-primary">Edit</a>
+                                                    <a href="{{route('transaksi.edit', $order->id_order)}}" class="btn btn-sm btn-primary">Edit</a>
                                                 </td>
                                             </td>
                                         </tr>

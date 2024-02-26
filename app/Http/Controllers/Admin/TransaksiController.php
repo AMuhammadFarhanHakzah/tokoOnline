@@ -28,8 +28,25 @@ class TransaksiController extends Controller
     {
         $title = 'Data Transaksi';
         $cari = $request->key;
+
+        if($cari === 'Belum Dibayar') {
+            $cari = 'belumdibayar';
+        } else if($cari === 'Sudah Dibayar') {
+            $cari = 'sudahdibayar';
+        } else if($cari === 'Belum Dikirim') {
+            $cari = 'belum';
+        } else if($cari === 'Sudah Dikirim') {
+            $cari = 'sudah';
+        } else{
+            $cari = $request->key;
+        }
+
         $itemOrder = cart::join('order', 'cart.id_cart', '=', 'order.id_cart')
                          ->join('users', 'cart.id_user', '=', 'users.id_user')
+                         ->where('users.name', 'LIKE', '%'.$cari.'%')
+                         ->orWhere('order.nama_penerima', 'LIKE', '%'.$cari.'%')
+                         ->orWhere('cart.status_pembayaran', 'LIKE', '%'.$cari.'%')
+                         ->orWhere('cart.status_pengiriman', 'LIKE', '%'.$cari.'%')
                          ->orderBy('order.created_at', 'desc')
                          ->paginate(20);
         return view('transaksi.index', compact('title', 'cari', 'itemOrder'))->with('no', ($request->input('page', 1) - 1) * 20);
@@ -69,7 +86,9 @@ class TransaksiController extends Controller
     public function edit(string $id)
     {
         $title = 'Edit Transaksi';
-        return view('transaksi.edit', compact('title'));
+        $itemOrder = order::findOrFail($id);
+        
+        return view('transaksi.edit', compact('title', 'itemOrder'))->with('no', 1);
     }
 
     /**
@@ -77,7 +96,7 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        return $request->all();
     }
 
     /**
