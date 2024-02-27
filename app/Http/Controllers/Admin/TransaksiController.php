@@ -96,7 +96,24 @@ class TransaksiController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        return $request->all();
+        $this->validate($request, [
+            'total' => 'required|numeric',
+            'subtotal' => 'required|numeric',
+            'ongkir' => 'required|numeric',
+            'status_pembayaran' => 'required',
+            'status_pengiriman' => 'required'
+        ]);
+
+        $inputanDetail['total'] = str_replace(',' , '' ,  $request->total);
+        $inputanDetail['subtotal'] = str_replace(',' , '' ,  $request->subtotal);
+        $inputanDetail['ongkir'] = str_replace(',' , '' ,  $request->ongkir);
+        $inputanDetail['status_pembayaran'] = $request->status_pembayaran;
+        $inputanDetail['status_pengiriman'] = $request->status_pengiriman;
+
+        $itemOrder = order::findOrFail($id);
+        $itemOrder->cart->update($inputanDetail);
+
+        return back()->with('Success', 'Order berhasil diupdate');
     }
 
     /**

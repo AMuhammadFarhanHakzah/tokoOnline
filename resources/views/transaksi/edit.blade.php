@@ -3,6 +3,27 @@
     <div class="container">
         <div class="row">
             <div class="col col-lg-8 col-md-8 mb-2">
+                @if (count($errors) > 0)
+                    @foreach ($errors as $error)
+                        <div class="alert alert-warning">
+                            {{ $error }}
+                        </div>
+                    @endforeach
+                @endif
+                @if ($message = Session::get('error'))
+                    <div class="alert alert-warning">
+                        <p>
+                            {{ $message }}
+                        </p>
+                    </div>
+                @endif
+                @if ($message = Session::get('Success'))
+                    <div class="alert alert-success">
+                        <p>
+                            {{ $message }}
+                        </p>
+                    </div>
+                @endif
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
@@ -64,48 +85,88 @@
                                         <tr>
                                             <td>Total</td>
                                             <td>
-                                                <input type="text" id="total" name='total' class="form-control"
+                                                <input type="number" id="total" name='total'
+                                                    class="form-control @error('total') is-invalid @enderror"
                                                     value='{{ number_format($itemOrder->cart->total, 2) }}'>
                                             </td>
+                                            @error('total')
+                                                <div class="alert alert-danger">
+                                                    <p>
+                                                        {{ $message }}
+                                                    </p>
+                                                </div>
+                                            @enderror
                                         </tr>
                                         <tr>
                                             <td>Subtotal</td>
                                             <td>
-                                                <input type="text" id="subtotal" name="subtotal" class="form-control"
+                                                <input type="number" id="subtotal" name="subtotal"
+                                                    class="form-control @error('subtotal') is-invalid @enderror"
                                                     value='{{ number_format($itemOrder->cart->subtotal, 2) }}'>
                                             </td>
+                                            @error('subtotal')
+                                                <div class="alert alert-danger">
+                                                    <p>
+                                                        {{ $message }}
+                                                    </p>
+                                                </div>
+                                            @enderror
                                         </tr>
                                         <tr>
                                             <td>Ongkir</td>
                                             <td>
-                                                <input type="text" id="ongkir" name="ongkir" class="form-control"
+                                                <input type="number" id="ongkir" name="ongkir"
+                                                    class="form-control @error('ongkir') is-invalid @enderror"
                                                     value="{{ number_format($itemOrder->cart->ongkir, 2) }}">
                                             </td>
+                                            @error('ongkir')
+                                                <div class="alert alert-danger">
+                                                    <p>
+                                                        {{ $message }}
+                                                    </p>
+                                                </div>
+                                            @enderror
                                         </tr>
                                         <tr>
                                             <td>Ekspedisi</td>
                                             <td>
-                                                <input type="text" id="ekspedisi" name="ekspedisi" class="form-control"
+                                                <input type="text" id="ekspedisi" name="ekspedisi"
+                                                    class="form-control @error('ekspedisi') is-invalid @enderror"
                                                     value="{{ $itemOrder->cart->ekspedisi }}">
                                             </td>
+                                            @error('ekspedisi')
+                                                <div class="alert alert-danger">
+                                                    <p>
+                                                        {{ $message }}
+                                                    </p>
+                                                </div>
+                                            @enderror
                                         </tr>
                                         <tr>
                                             <td>No. Resi</td>
                                             <td>
-                                                <input type="text" id="no. resi" name="no. resi" class="form-control"
+                                                <input type="text" id="no_resi" name="no_resi"
+                                                    class="form-control @error('no_resi') is-invalid d@enderror"
                                                     value="{{ $itemOrder->cart->no_resi }}">
                                             </td>
+                                            @error('no_resi')
+                                                <div class="alert alert-warning">
+                                                    <p>
+                                                        {{ $message }}
+                                                    </p>
+                                                </div>
+                                            @enderror
                                         </tr>
                                         <tr>
                                             <td>Status Pembayaran</td>
                                             <td>
                                                 <select name="status_pembayaran" id="status_pembayaran"
                                                     class="form-control">
-                                                    <option value="{{$itemOrder->cart->status_pembayaran}}"
+                                                    <option value="{{ $itemOrder->cart->status_pembayaran }}"
                                                         {{ $itemOrder->cart->status_pembayaran == $itemOrder->cart->status_pembayaran ? 'selected' : '' }}>
                                                         Sudah Dibayar
                                                     </option>
-                                                    <option value="{{$itemOrder->cart->status_pembayaran}}"
+                                                    <option value="{{ $itemOrder->cart->status_pembayaran }}"
                                                         {{ $itemOrder->cart->status_pembayaran == $itemOrder->cart->status_pembayaran ? 'selected' : '' }}>
                                                         Belum Dibayar
                                                     </option>
@@ -118,7 +179,7 @@
                                             <td>
                                                 <select name="status_pengiriman" id="status_pengiriman"
                                                     class="form-control">
-                                                    <option value="{{$itemOrder->cart->status_pengiriman}}"
+                                                    <option value="{{ $itemOrder->cart->status_pengiriman }}"
                                                         {{ $itemOrder->cart->status_pengiriman == $itemOrder->cart->status_pengiriman ? 'selected' : '' }}>
                                                         Sudah
                                                     </option>
