@@ -100,15 +100,17 @@ class TransaksiController extends Controller
             'total' => 'required|numeric',
             'subtotal' => 'required|numeric',
             'ongkir' => 'required|numeric',
+            'no_resi' => 'required|numeric',
             'status_pembayaran' => 'required',
             'status_pengiriman' => 'required'
         ]);
-
-        $inputanDetail['total'] = str_replace(',' , '' ,  $request->total);
-        $inputanDetail['subtotal'] = str_replace(',' , '' ,  $request->subtotal);
-        $inputanDetail['ongkir'] = str_replace(',' , '' ,  $request->ongkir);
+        $inputanDetail = $request->all();
         $inputanDetail['status_pembayaran'] = $request->status_pembayaran;
         $inputanDetail['status_pengiriman'] = $request->status_pengiriman;
+        $inputanDetail['total'] = str_replace(',' , '' , $request->total);
+        $inputanDetail['subtotal'] = str_replace(',' , '' , $request->subtotal);
+        $inputanDetail['ongkir'] = str_replace(',' , '' , $request->ongkir);
+        
 
         $itemOrder = order::findOrFail($id);
         $itemOrder->cart->update($inputanDetail);

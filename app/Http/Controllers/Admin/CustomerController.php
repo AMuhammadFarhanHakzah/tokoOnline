@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\order;
+use App\Models\User;
 use Illuminate\Http\Request;
 
 class CustomerController extends Controller
@@ -13,7 +15,22 @@ class CustomerController extends Controller
     public function index()
     {
         $title ='Data Customer';
-        return view('customer.index', compact('title'));
+        $itemCustomer = User::where('role', 'member')->paginate(20);
+        return view('customer.index', compact('title', 'itemCustomer'))->with('no', 1);
+    }
+
+    public function cari(Request $request) 
+    {
+        $title = 'Cari Customer';
+        $cari = $request->key;
+        $itemCustomer = User::where('role', 'member')
+                            ->where('name', 'LIKE', '%'.$cari.'%')
+                            ->orWhere('email', 'LIKE', '%'.$cari.'%')
+                            ->orWhere('telepon', 'LIKE', '%'.$cari.'%')
+                            ->orWhere('status', 'LIKE', '%'.$cari.'%')
+                            ->paginate(20);
+                            
+        return view('customer.index', compact('title', 'cari', 'itemCustomer'))->with('no', 1);
     }
 
     /**

@@ -10,13 +10,14 @@
                         </div>
                     </div>
                     <div class="card-body">
-                        <form action="#">
+                        <form action="{{ route('customer.cari') }}" method="GET">
                             <div class="row">
                                 <div class="col">
-                                    <input type="text" class="form-control" id='keyword' placeholder='Ketik Keyword Disini'>
+                                    <input type="text" class="form-control" id='key' name="key"
+                                        placeholder='Cari nama, telepon, status dan email'>
                                 </div>
                                 <div class="col-auto">
-                                    <button class="btn btn-primary">Cari</button>
+                                    <button type="submit" class="btn btn-primary">Cari</button>
                                 </div>
                             </div>
                         </form>
@@ -30,47 +31,26 @@
                                         <th>Nama</th>
                                         <th>Email</th>
                                         <th>No. Telepon</th>
-                                        <th>Alamat</th>
                                         <th>Status</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <tr>
-                                        <td>1</td>
-                                        <td>Amin</td>
-                                        <td>amin@gmail.com</td>
-                                        <td>002145671234</td>
-                                        <td>Jln. Jenderal Sudirman no.1, Kudus</td>
-                                        <td>Aktif</td>
-                                        <td><a href="{{route('customer.edit', 2)}}" class="btn btn-sm btn-primary">Edit</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>2</td>
-                                        <td>Amin</td>
-                                        <td>amin@gmail.com</td>
-                                        <td>002145671234</td>
-                                        <td>Jln. Jenderal Sudirman no.1, Kudus</td>
-                                        <td>Aktif</td>
-                                        <td><a href="{{route('customer.edit', 2)}}" class="btn btn-sm btn-primary">Edit</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>3</td>
-                                        <td>Amin</td>
-                                        <td>amin@gmail.com</td>
-                                        <td>002145671234</td>
-                                        <td>Jln. Jenderal Sudirman no.1, Kudus</td>
-                                        <td>Aktif</td>
-                                        <td><a href="{{route('customer.edit', 2)}}" class="btn btn-sm btn-primary">Edit</a></td>
-                                    </tr>
-                                    <tr>
-                                        <td>4</td>
-                                        <td>Amin</td>
-                                        <td>amin@gmail.com</td>
-                                        <td>002145671234</td>
-                                        <td>Jln. Jenderal Sudirman no.1, Kudus</td>
-                                        <td>Aktif</td>
-                                        <td><a href="{{route('customer.edit', 2)}}" class="btn btn-sm btn-primary">Edit</a></td>
-                                    </tr>
+                                    {{-- @php
+                                        $no = 1;
+                                    @endphp --}}
+                                    @foreach ($itemCustomer as $customer)
+                                        @if ($customer->role != 'admin')
+                                            <tr>
+                                                <td> {{ $no++ }} </td>
+                                                <td> {{ $customer->name }} </td>
+                                                <td> {{ $customer->email }} </td>
+                                                <td> {{ $customer->telepon }} </td>
+                                                <td>Aktif</td>
+                                                <td><a href="{{ route('customer.edit', $customer->id_user) }}"
+                                                        class="btn btn-sm btn-primary">Edit</a></td>
+                                            </tr>
+                                        @endif
+                                    @endforeach
                                 </tbody>
                             </table>
                         </div>
@@ -79,6 +59,4 @@
             </div>
         </div>
     </div>
-
-
 @endsection

@@ -81,6 +81,7 @@ Route::middleware(['auth', 'role:admin'])->group(function () {
         route::delete('/foto-produk/{id}', [ProdukController::class, 'destroy_foto'])->name('produk.destroy_foto');
         //Route Customer
         route::resource('customer', CustomerController::class);
+        route::get('/cari-customer', [CustomerController::class, 'cari'])->name('customer.cari');
         //Route Transaksi
         route::resource('transaksi', TransaksiController::class);
         Route::get('/cari-transaksi', [TransaksiController::class, 'cari'])->name('transaksi.cari');

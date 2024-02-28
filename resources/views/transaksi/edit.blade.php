@@ -3,27 +3,6 @@
     <div class="container">
         <div class="row">
             <div class="col col-lg-8 col-md-8 mb-2">
-                @if (count($errors) > 0)
-                    @foreach ($errors as $error)
-                        <div class="alert alert-warning">
-                            {{ $error }}
-                        </div>
-                    @endforeach
-                @endif
-                @if ($message = Session::get('error'))
-                    <div class="alert alert-warning">
-                        <p>
-                            {{ $message }}
-                        </p>
-                    </div>
-                @endif
-                @if ($message = Session::get('Success'))
-                    <div class="alert alert-success">
-                        <p>
-                            {{ $message }}
-                        </p>
-                    </div>
-                @endif
                 <div class="card">
                     <div class="card-header">
                         <div class="card-title">
@@ -69,6 +48,27 @@
                 </div>
             </div>
             <div class="col col-lg-4 col-md-4 mb-2">
+                @if (count($errors) > 0)
+                    @foreach ($errors as $error)
+                        <div class="alert alert-warning">
+                            {{ $error }}
+                        </div>
+                    @endforeach
+                @endif
+                @if ($message = Session::get('error'))
+                    <div class="alert alert-warning">
+                        <p>
+                            {{ $message }}
+                        </p>
+                    </div>
+                @endif
+                @if ($message = Session::get('Success'))
+                    <div class="alert alert-success">
+                        <p>
+                            {{ $message }}
+                        </p>
+                    </div>
+                @endif
                 <div class="table-responsive">
                     <div class="card">
                         <div class="card-header">
@@ -87,7 +87,7 @@
                                             <td>
                                                 <input type="number" id="total" name='total'
                                                     class="form-control @error('total') is-invalid @enderror"
-                                                    value='{{ number_format($itemOrder->cart->total, 2) }}'>
+                                                    value='{{ number_format($itemOrder->cart->total)}}'>
                                             </td>
                                             @error('total')
                                                 <div class="alert alert-danger">
@@ -102,7 +102,7 @@
                                             <td>
                                                 <input type="number" id="subtotal" name="subtotal"
                                                     class="form-control @error('subtotal') is-invalid @enderror"
-                                                    value='{{ number_format($itemOrder->cart->subtotal, 2) }}'>
+                                                    value='{{ number_format($itemOrder->cart->subtotal) }}'>
                                             </td>
                                             @error('subtotal')
                                                 <div class="alert alert-danger">
@@ -145,8 +145,8 @@
                                         <tr>
                                             <td>No. Resi</td>
                                             <td>
-                                                <input type="text" id="no_resi" name="no_resi"
-                                                    class="form-control @error('no_resi') is-invalid d@enderror"
+                                                <input type="number" id="no_resi" name="no_resi"
+                                                    class="form-control @error('no_resi') is-invalid @enderror"
                                                     value="{{ $itemOrder->cart->no_resi }}">
                                             </td>
                                             @error('no_resi')
@@ -162,12 +162,12 @@
                                             <td>
                                                 <select name="status_pembayaran" id="status_pembayaran"
                                                     class="form-control">
-                                                    <option value="{{ $itemOrder->cart->status_pembayaran }}"
-                                                        {{ $itemOrder->cart->status_pembayaran == $itemOrder->cart->status_pembayaran ? 'selected' : '' }}>
+                                                    <option value="sudahdibayar"
+                                                        {{ $itemOrder->cart->status_pembayaran === 'sudahdibayar' ? 'selected' : '' }}>
                                                         Sudah Dibayar
                                                     </option>
-                                                    <option value="{{ $itemOrder->cart->status_pembayaran }}"
-                                                        {{ $itemOrder->cart->status_pembayaran == $itemOrder->cart->status_pembayaran ? 'selected' : '' }}>
+                                                    <option value="belumdibayar"
+                                                        {{ $itemOrder->cart->status_pembayaran === 'belumdibayar' ? 'selected' : '' }}>
                                                         Belum Dibayar
                                                     </option>
                                                 </select>
@@ -179,12 +179,12 @@
                                             <td>
                                                 <select name="status_pengiriman" id="status_pengiriman"
                                                     class="form-control">
-                                                    <option value="{{ $itemOrder->cart->status_pengiriman }}"
-                                                        {{ $itemOrder->cart->status_pengiriman == $itemOrder->cart->status_pengiriman ? 'selected' : '' }}>
+                                                    <option value="sudah"
+                                                        {{ $itemOrder->cart->status_pengiriman === 'sudah' ? 'selected' : '' }}>
                                                         Sudah
                                                     </option>
                                                     <option value="belum"
-                                                        {{ $itemOrder->cart->status_pengiriman == $itemOrder->cart->status_pengiriman ? 'selected' : '' }}>
+                                                        {{ $itemOrder->cart->status_pengiriman == 'belum' ? 'selected' : '' }}>
                                                         Belum
                                                     </option>
                                                 </select>
