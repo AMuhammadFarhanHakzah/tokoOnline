@@ -11,7 +11,7 @@
                     </div>
                 </div>
                 <div class="card-body">
-                    <form action="#">
+                    <form action="{{route('laporan.proses')}}" method="GET">
                         <div class="form-group">
                             <label for="bulan">Bulan</label>
                             <select name="bulan" id="bulan" class="form-control">
@@ -38,7 +38,7 @@
                             </select>
                         </div>
                         <div class="form-group">
-                            <a href="{{route('laporan.proses')}}" class="btn btn-primary">Buka Laporan</a>
+                            <button type="submit" class="btn btn-primary">Buka Laporan</button>
                         </div>
                     </form>
                 </div>

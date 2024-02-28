@@ -45,7 +45,7 @@
                                                 <td> {{ $customer->name }} </td>
                                                 <td> {{ $customer->email }} </td>
                                                 <td> {{ $customer->telepon }} </td>
-                                                <td>Aktif</td>
+                                                <td> {{ $customer->status }} </td>
                                                 <td><a href="{{ route('customer.edit', $customer->id_user) }}"
                                                         class="btn btn-sm btn-primary">Edit</a></td>
                                             </tr>

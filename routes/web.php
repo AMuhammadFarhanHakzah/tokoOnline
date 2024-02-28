@@ -51,7 +51,7 @@ Route::get('/kategori', [HomepageController::class, 'kategori'])->name('home.kat
 Route::get('/kategori/{slug}', [HomepageController::class, 'kategoribyslug'])->name('home.kategoribyslug');
 Route::get('/produkDetail/{slug}', [HomepageController::class, 'produkDetail'])->name('home.produkDetail');
 
-Route::middleware(['auth', 'role:member'])->group(function () {
+Route::middleware(['auth', 'role:member', 'status:aktif'])->group(function () {
     Route::resource('cart', CartController::class);
     Route::patch('/kosongkan/{id}', [CartController::class, 'kosongkan']);
     Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout.checkout');

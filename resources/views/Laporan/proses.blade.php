@@ -11,7 +11,7 @@
                     </div>
                     <div class="card-body">
                         <h3 class="text-center">
-                            Periode Bulan Januari 2024
+                            Periode Bulan {{$bulan}} {{$tahun}}
                         </h3>
                         <div class="row">
                             <div class="col col-lg-4 col-md-4">
@@ -20,39 +20,45 @@
                                 </h4>
                                 <table class="table table-bordered">
                                     <tbody>
+                                        @php
+                                            $total = 0;
+                                            foreach ($itemTransaksi as $ik) {
+                                                $total += $ik->cart->total;
+                                            }
+                                        @endphp
                                         <tr>
                                             <td>Total Penjualan</td>
-                                            <td>Rp. 15.000.000</td>
+                                            <td>Rp. {{number_format($total)}} </td>
                                         </tr>
                                         <tr>
                                             <td>Total Transaksi</td>
-                                            <td>200 Transaksi</td>
+                                            <td> {{count($itemTransaksi)}} Transaksi</td>
                                         </tr>
                                     </tbody>
                                 </table>
                             </div>
                             <div class="col col-lg-8 col-md-8">
                                 <h4 class="text-center">Rincian Transaksi</h4>
-                                <table class="table table-bordered">
+                                <table class="table table-stripped">
                                     <thead>
                                         <tr>
                                             <th>No</th>
                                             <th>Invoice</th>
                                             <th>Subtotal</th>
                                             <th>Ongkir</th>
-                                            <th>Diskon</th>
                                             <th>Total</th>
                                         </tr>
                                     </thead>
                                     <tbody>
-                                        <tr>
-                                            <td>1</td>
-                                            <td>Inv-01</td>
-                                            <td>100.000</td>
-                                            <td>27.000</td>
-                                            <td>0</td>
-                                            <td>127.000</td>
-                                        </tr>
+                                        @foreach ($itemTransaksi as $transaksi)
+                                            <tr>
+                                                <td> {{$no++}} </td>
+                                                <td> {{$transaksi->cart->no_invoice}} </td>
+                                                <td> Rp.{{number_format($transaksi->cart->subtotal, 2)}} </td>
+                                                <td> Rp.{{number_format($transaksi->cart->ongkir, 2)}} </td>
+                                                <td> Rp.{{number_format($transaksi->cart->total, 2)}} </td>
+                                            </tr>
+                                        @endforeach
                                     </tbody>
                                 </table>
                             </div>

@@ -63,7 +63,8 @@ class CustomerController extends Controller
     public function edit(string $id)
     {
         $title = 'Edit Customer';
-        return view('customer.edit', compact('title'));
+        $itemCustomer = User::findOrFail($id);
+        return view('customer.edit', compact('title', 'itemCustomer'));
     }
 
     /**
@@ -71,7 +72,8 @@ class CustomerController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        User::where('id_user', '=', $id)->update(['status' => $request->status]);
+        return redirect()->route('customer.index')->with('Success', 'Status berhasil diupdate');
     }
 
     /**
