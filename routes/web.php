@@ -13,6 +13,7 @@ use App\Http\Controllers\admin\SlideshowController;
 use App\Http\Controllers\AlamatPengirimanController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\CartDetailController;
+use App\Http\Controllers\CheckOngkirController;
 use App\Http\Controllers\HomeController;
 use App\Http\Controllers\TransaksiUserController;
 use Illuminate\Support\Facades\Auth;
@@ -55,6 +56,9 @@ Route::middleware(['auth', 'role:member', 'status:aktif'])->group(function () {
     Route::resource('cart', CartController::class);
     Route::patch('/kosongkan/{id}', [CartController::class, 'kosongkan']);
     Route::get('/checkout', [CartController::class, 'checkout'])->name('checkout.checkout');
+
+    Route::post('/ongkir', [CheckOngkirController::class, 'check_ongkir']);
+    Route::get('/cities/{id_provinsi}', [CheckOngkirController::class, 'getCities']);
 
     Route::resource('cartdetail', CartDetailController::class);
     

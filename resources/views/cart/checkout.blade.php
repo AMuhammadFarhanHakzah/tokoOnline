@@ -146,7 +146,7 @@
                         <label for="" class="font-weight-bold">PROVINSI TUJUAN</label>
                         <select name="province_destination" id="province_destination" class="form-control provinsi-tujuan">
                             <option value="0">-- Pilih provinsi tujuan --</option>
-                            @foreach (provinsi as $p => $value)
+                            @foreach ($provinsi as $p => $value)
                                 <option value="{{$p}}"> {{$value}} </option>
                             @endforeach
                         </select>
@@ -172,6 +172,23 @@
                         <label for="" class="font-weight-bold">BERAT (GRAM)</label>
                         <input type="number" name="weight" id='weight' class="form-control" placeholder="Masukkan Berat (Gram)" value = "{{$produk}}">
                     </div>
+                    <div class="form-group">
+                        <button class="btn btn-md btn-primary btn-block btn-check">CEK ONGKOS KIRIM</button>
+                    </div>
+                    <form action="{{route('transaksi.update', $itemCart->id_cart)}}" method="POST">
+                        @csrf
+                        @method('PUT')
+                        <input type="hidden" name="ongkir" id="ongkir" value="">
+                        <div class="form-group">
+                            <label for="">Pilih kurir</label>
+                            <select name="ekspedisi" id="ekspedisi" class="form-control">
+                                <option value="">-- pilih ekspedisi --</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <button type="submit" class="btn btn-md btn-info btn-block">PILIH KURIR</button>
+                        </div>
+                    </form>
                 </div>
             </div>
             <div class="card">
@@ -236,3 +253,11 @@
 </div>
 
 @endsection
+
+@push('js')
+
+<script>
+    
+</script>
+
+@endpush

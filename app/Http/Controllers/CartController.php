@@ -6,6 +6,7 @@ use App\Models\alamatpengiriman;
 use App\Models\cart;
 use App\Models\cartdetail;
 use App\Models\produk;
+use App\Models\provinsi;
 use Illuminate\Http\Request;
 
 class CartController extends Controller
@@ -110,13 +111,22 @@ class CartController extends Controller
         $itemAlamatPengiriman = alamatpengiriman::where('id_user', $itemUser->id_user)
                                                 ->where('status', '1')
                                                 ->first();
-        
+
+        $produk = array();
+        foreach($itemCart->cartdetail as $detail => $key) {
+            $produk[$detail] = produk::where('id_produk', $key->id_produk)->first()->berat*$key->qty;
+        }
+
+        $provinsi = provinsi::pluck('nama', 'id_provinsi');
+
         if($itemCart) {
             $data = array(
                 'title' => 'Checkout',
                 'itemCart' => $itemCart,
                 'active' => 'cart',
                 'itemAlamatPengiriman' => $itemAlamatPengiriman,
+                'provinsi' => $provinsi,
+                'produk' => array_sum($produk),
             );
             return view('cart.checkout', $data)->with('no', 1);
         } else {
