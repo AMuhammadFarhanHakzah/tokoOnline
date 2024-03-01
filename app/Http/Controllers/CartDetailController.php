@@ -51,6 +51,7 @@ class CartDetailController extends Controller
             $inputanCart['id_user'] = $itemUser->id_user;
             $inputanCart['no_invoice'] = 'INV' . str_pad(($no_invoice + 1), '3', '0', STR_PAD_LEFT);
             $inputanCart['status_cart'] = 'proses';
+            $inputanCart['ongkir'] = '0';
             $inputanCart['status_pembayaran'] = 'belumdibayar';
             $inputanCart['status_pengiriman'] = 'belum';
             $itemCart = cart::create($inputanCart);

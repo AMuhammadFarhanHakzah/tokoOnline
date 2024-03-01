@@ -124,6 +124,58 @@
         <div class="col col-4">
             <div class="card">
                 <div class="card-header">
+                    Silahkan cek ongkir terlebih dahulu
+                </div>
+                <div class="card-body">
+                    <div class="form-group">
+                        <label for="" class="font-weight-bold">PROVINSI ASAL</label>
+                        <select name="province_origin" id="province_origin" class="form-control provinsi-asal">
+                            <option value="0">-- Pilih provinsi asal --</option>
+                            @foreach ($provinsi as $p => $value)
+                                <option value="{{$p}}"> {{$value}} </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="font-weight-bold">KOTA / KABUPATEN ASAL</label>
+                        <select name="city_origin" id="city_origin" class="form-control kota-asal">
+                            <option value="">-- Pilih kota asal --</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="font-weight-bold">PROVINSI TUJUAN</label>
+                        <select name="province_destination" id="province_destination" class="form-control provinsi-tujuan">
+                            <option value="0">-- Pilih provinsi tujuan --</option>
+                            @foreach (provinsi as $p => $value)
+                                <option value="{{$p}}"> {{$value}} </option>
+                            @endforeach
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="">KOTA / KABUPATEN TUJUAN</label>
+                        <select name="city_destination" id="city_destination" class="form-control kota-tujuan">
+                            <option value="">--  Pilih kota tujuan--</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="card-footer">
+                    <div class="form-group">
+                        <label for="">KURIR</label>
+                        <select name="courier" id="courier" class="form-control kurir">
+                            <option value="o">-- Pilih kurir --</option>
+                            <option value="jne">JNE</option>
+                            <option value="pos">POS</option>
+                            <option value="tiki">TIKI</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="" class="font-weight-bold">BERAT (GRAM)</label>
+                        <input type="number" name="weight" id='weight' class="form-control" placeholder="Masukkan Berat (Gram)" value = "{{$produk}}">
+                    </div>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">
                     Ringkasan
                 </div>
                 <div class="card-body">
