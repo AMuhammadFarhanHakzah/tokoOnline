@@ -113,8 +113,11 @@ class CartController extends Controller
                                                 ->first();
 
         $produk = array();
-        foreach($itemCart->cartdetail as $detail => $key) {
-            $produk[$detail] = produk::where('id_produk', $key->id_produk)->first()->berat*$key->qty;
+        
+        if($itemCart) {
+            foreach($itemCart->cartdetail as $detail => $key) {
+                $produk[$detail] = produk::where('id_produk', $key->id_produk)->first()->berat*$key->qty;
+            }
         }
 
         $provinsi = provinsi::pluck('nama', 'id_provinsi');

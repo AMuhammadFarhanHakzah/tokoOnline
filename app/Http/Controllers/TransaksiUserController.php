@@ -111,9 +111,17 @@ class TransaksiUserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, $id)
     {
-        //
+        $this->validate($request, [
+            'ekspedisi' => 'required'
+        ]);
+
+        $inputan = $request->all();
+        $inputan['ekspedisi'] = $request->ekspedisi;
+        $itemOrder = cart::findOrFail($id);
+        $itemOrder->update($inputan);
+        return back()->with('ekspedisi', $request->ongkir);
     }
 
     /**
